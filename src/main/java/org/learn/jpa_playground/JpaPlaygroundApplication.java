@@ -1,4 +1,4 @@
-package org.learn.jpa.jpa_playground;
+package org.learn.jpa_playground;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

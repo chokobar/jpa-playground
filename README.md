@@ -9,7 +9,7 @@ Spring Boot + JPA 기반으로 간단한 게시판/회원 시스템을 구현했
 - Spring Boot 3.4
 - Spring Data JPA
 - MySQL Database
-- Thymeleaf (또는 REST API)
+- Thymeleaf
 - Gradle
 
 ## 🔍 주요 기능

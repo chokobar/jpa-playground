@@ -9,55 +9,104 @@
       flex-direction: column;
       height: 100vh;
       margin: 0;
+      font-family: Arial, sans-serif;
     }
+
     header {
       background-color: #f8f9fa;
-      padding: 10px;
-      text-align: center;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #dee2e6;
     }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #343a40;
+    }
+
+    .auth-links a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .auth-links a:hover {
+      text-decoration: underline;
+    }
+
     .container {
       display: flex;
       flex: 1;
     }
+
     .sidebar {
       background-color: #e9ecef;
-      width: 200px; /* 좌측 영역의 너비 */
-      padding: 10px;
+      width: 200px;
+      padding: 20px;
     }
+
+    .sidebar h2 {
+      margin-top: 0;
+    }
+
+    .sidebar li {
+      list-style: none;
+      margin: 10px 0;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #343a40;
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
     .main {
-      flex: 1; /* 중앙 영역이 남은 공간을 차지 */
-      padding: 10px;
+      flex: 1;
+      padding: 20px;
     }
+
     footer {
       background-color: #f8f9fa;
       padding: 10px;
       text-align: center;
+      border-top: 1px solid #dee2e6;
     }
   </style>
-  <script>
-    function goToMovie() {
-      const date = new Date().toISOString().slice(0, 10).replace(/-/g, ''); // YYYYMMDD 형식
-      location.href = `/movies/daily-box-office?date=${date}`;
-    }
-  </script>
 </head>
 <body>
+
 <header>
   <h1>JPA 간단한 실습</h1>
+  <div class="auth-links">
+    <a href="/login">로그인</a> &nbsp;&nbsp;&nbsp;|
+    <a href="/member/signUp">회원가입</a>
+  </div>
 </header>
+
 <div class="container">
   <div class="sidebar">
     <h2>Left 영역</h2>
-    <p>여기에 이드바 내용을 추가하세요.</p>
-    <li><a href="/member/signUp">회원가입</a></li>
-    <li><a href="">비고</a></li>
+<!--    <p>여기에 사이드바 내용을 추가하세요.</p>-->
+<!--    <ul>-->
+<!--      <li><a href="/member/signUp">회원가입</a></li>-->
+<!--      <li><a href="#">비고</a></li>-->
+<!--    </ul>-->
   </div>
   <div class="main">
-
+    <!-- 여기에 본문 내용을 추가하세요 -->
   </div>
 </div>
+
 <footer>
   <p>Footer 영역</p>
 </footer>
+
 </body>
 </html>

@@ -20,20 +20,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/member")
 public class MemberController {
 
-    //private final Logger log = LoggerFactory.getLogger(getClass()); @Slf4j 이걸로 대체
-
     @Autowired
     private MemberService memberService;
 
     @GetMapping("/signUp")
     public String signUp(Model model) {
+        model.addAttribute("memberDTO", new MemberDTO());
         return "signUp";
     }
 
     @PostMapping("/save")
     public String memberSave(MemberDTO memberDto) {
-        log.info("Member save {}", memberDto);
+        log.info("Member save:{}", memberDto);
+
         memberService.save(memberDto);
-        return "redirect:/index";
+        return "redirect:/";
     }
 }

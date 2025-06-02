@@ -1,5 +1,6 @@
 package org.learn.jpa_playground.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.learn.jpa_playground.domain.MemberDomain;
 import org.learn.jpa_playground.dto.MemberDTO;
@@ -17,14 +18,15 @@ public class MemberService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
 
+    @Transactional
     public MemberDomain save(MemberDTO memberDto) {
         MemberDomain memberDomain = MemberDomain.builder()
-                .id(memberDto.getId())
-                .password(passwordEncoder.encode(memberDto.getPassword()))
-                .name(memberDto.getName())
-                .age(memberDto.getAge())
-                .email(memberDto.getEmail())
-                .phone(memberDto.getPhone())
+                .uniqueKey(memberDto.getUniqueKey())
+                .userId(memberDto.getUserId())
+                .userPassword(memberDto.getUserPassword())
+                .userName(memberDto.getUserName())
+                .userEmail(memberDto.getUserEmail())
+                .userPhone(memberDto.getUserPhone())
                 .createdDate(new Date())
                 .build();
 

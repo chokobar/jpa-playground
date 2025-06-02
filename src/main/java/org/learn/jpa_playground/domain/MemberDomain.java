@@ -10,30 +10,41 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name="member")
+@Table(name = "`user`")
 public class MemberDomain {
 
     @Id
-    private String id;
-    private String password;
-    private String name;
-    private int age;
-    private String email;
-    private String phone;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "uniqueKey")
+    private int uniqueKey;
 
-    /*Java의 날짜 타입*/
+    @Column(name = "userId")
+    private String userId;
+
+    @Column(name = "userPassword")
+    private String userPassword;
+
+    @Column(name = "userName")
+    private String userName;
+
+    @Column(name = "userEmail")
+    private String userEmail;
+
+    @Column(name = "userPhone")
+    private String userPhone;
+
+    @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
     @Builder
-    public MemberDomain(String id, String password, String name, int age, String email, String phone, Date createdDate) {
-        this.id = id;
-        this.password = password;
-        this.name = name;
-        this.age = age;
-        this.email = email;
-        this.phone = phone;
+    public MemberDomain(int uniqueKey, String userId, String userPassword, String userName, String userEmail, String userPhone, Date createdDate) {
+        this.uniqueKey = uniqueKey;
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPhone = userPhone;
         this.createdDate = createdDate;
     }
-
 }

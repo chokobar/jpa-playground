@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Start</title>
@@ -85,22 +85,26 @@
 <header>
   <h1>JPA 간단한 실습</h1>
   <div class="auth-links">
-    <a href="/login">로그인</a> &nbsp;&nbsp;&nbsp;|
-    <a href="/member/signUp">회원가입</a>
+    <a th:href="@{/login}">로그인</a> &nbsp;&nbsp;&nbsp;|
+    <a th:href="@{/member/signup}">회원가입</a>
   </div>
 </header>
 
 <div class="container">
   <div class="sidebar">
     <h2>Left 영역</h2>
-<!--    <p>여기에 사이드바 내용을 추가하세요.</p>-->
-<!--    <ul>-->
-<!--      <li><a href="/member/signUp">회원가입</a></li>-->
-<!--      <li><a href="#">비고</a></li>-->
-<!--    </ul>-->
+    <!-- 필요 시 사이드바 메뉴를 여기에 추가 -->
+    <!--
+    <ul>
+      <li><a th:href="@{/member/signUp}">회원가입</a></li>
+      <li><a th:href="@{/some-other-link}">비고</a></li>
+    </ul>
+    -->
+    <a th:href="@{/member/members}">회원List</a>
   </div>
   <div class="main">
-    <!-- 여기에 본문 내용을 추가하세요 -->
+    <!-- 본문 내용이 여기에 들어갑니다 -->
+    <p th:text="'안녕하세요, ' + ${userName} + '님!'">안녕하세요, 사용자님!</p>
   </div>
 </div>
 

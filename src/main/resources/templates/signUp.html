@@ -31,7 +31,10 @@
         <label for="userPhone" class="form-label">휴대폰 번호</label>
         <input type="tel" class="form-control" id="userPhone" th:field="*{userPhone}">
       </div>
-      <button type="submit" class="btn btn-success w-100 mt-2">가입하기</button>
+      <div class="d-flex justify-content-between mt-3">
+        <a class="btn btn-primary w-50 me-2" th:href="@{/}">메인이동</a>
+        <button type="submit" class="btn btn-success w-50">가입하기</button>
+      </div>
     </form>
   </div>
 </div>

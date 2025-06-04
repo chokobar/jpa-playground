@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>회원 상세</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <style>
+    .form-label {
+      font-weight: bold;
+    }
+    .form-control[readonly] {
+      background-color: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="card p-4 shadow-sm" style="width: 600px;">
+    <h3 class="text-center mb-4">회원 상세 정보</h3>
+
+    <div class="mb-3">
+      <label for="userId" class="form-label">사용자 ID</label>
+      <input type="text" id="userId" name="userId" class="form-control"
+             th:value="${member.userId}" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label for="userName" class="form-label">이름</label>
+      <input type="text" id="userName" name="userName" class="form-control"
+             th:value="${member.userName}" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label for="userEmail" class="form-label">이메일</label>
+      <input type="email" id="userEmail" name="userEmail" class="form-control"
+             th:value="${member.userEmail}" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label for="userPhone" class="form-label">연락처</label>
+      <input type="text" id="userPhone" name="userPhone" class="form-control"
+             th:value="${member.userPhone}" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label for="userPhone" class="form-label">회원 가입일</label>
+      <input type="text" id="createdDate" name="createdDate" class="form-control"
+             th:value="${member.createdDate}" readonly>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <a class="btn btn-secondary" th:href="@{/}">메인으로</a>
+      <a class="btn btn-primary" th:href="@{/signup}">수정</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

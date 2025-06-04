@@ -22,8 +22,11 @@
             </thead>
             <tbody>
             <tr th:each="user , userStat : ${members}">
-                <td th:text="${userStat.index + 1}">userId</td>
-                <td th:text="${user.userId}">userId</td>
+                <td th:text="${userStat.index + 1}">uniqueKey</td>
+                <td>
+                    <a th:href="@{/member/members/{userId}(userId=${user.userId})}"
+                       th:text="${user.userId}">userId</a>
+                </td>
                 <td th:text="${user.userName}">userName</td>
                 <td th:text="${user.userEmail}">userEmail</td>
                 <td th:text="${user.userPhone}">userPhone</td>

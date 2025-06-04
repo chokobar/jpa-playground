@@ -21,4 +21,6 @@ public class MemberDTO {
     private String userEmail;
 
     private String userPhone;
+
+    private String createdDate;
 }

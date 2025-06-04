@@ -51,5 +51,21 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public MemberDTO findByUserId(String userId) {
+
+        MemberDomain memberDomain = memberRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원은 존재하지 않습니다. ID : " + userId));
+
+        return MemberDTO.builder()
+                .uniqueKey(memberDomain.getUniqueKey())
+                .userId(memberDomain.getUserId())
+                .userPassword(memberDomain.getUserPassword())
+                .userName(memberDomain.getUserName())
+                .userEmail(memberDomain.getUserEmail())
+                .userPhone(memberDomain.getUserPhone())
+                .createdDate(String.valueOf(memberDomain.getCreatedDate()))
+                .build();
+    }
 
 }

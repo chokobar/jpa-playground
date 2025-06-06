@@ -2,11 +2,8 @@ package org.learn.jpa_playground.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.learn.jpa_playground.domain.MemberDomain;
 import org.learn.jpa_playground.dto.MemberDTO;
 import org.learn.jpa_playground.service.MemberService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +20,22 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    /**
+     * 회원 가입
+     * @param model
+     * @return
+     */
     @GetMapping("/signup")
     public String signUp(Model model) {
         model.addAttribute("memberDTO", new MemberDTO());
         return "signUp";
     }
 
+    /**
+     * 회워가입 로직
+     * @param memberDto
+     * @return
+     */
     @PostMapping("/save")
     public String memberSave(@ModelAttribute MemberDTO memberDto) {
         log.info("Member save:{}", memberDto);
@@ -37,6 +44,11 @@ public class MemberController {
         return "redirect:/";
     }
 
+    /**
+     * 회원 리스트
+     * @param model
+     * @return
+     */
     @GetMapping("/members")
     public String members(Model model) {
         List<MemberDTO> members = memberService.findAll();
@@ -45,6 +57,12 @@ public class MemberController {
         return "members";
     }
 
+    /**
+     * 회원 상세 페이지
+     * @param userId
+     * @param model
+     * @return
+     */
     @GetMapping("/members/{userId}")
     public String membersDetail(@PathVariable String userId, Model model) {
         log.info("Member detail:{}", userId);
@@ -54,5 +72,20 @@ public class MemberController {
         MemberDTO memberDTO =  memberService.findByUserId(userId);
         model.addAttribute("member", memberDTO);
         return "memberDetails";
+    }
+
+    /**
+     * 사용자 수정페이지
+     * @param userId
+     * @param model
+     * @return
+     */
+    @GetMapping("/members/{userId}/edit")
+    public String membersEdit(@PathVariable String userId, Model model) {
+        log.info("Member edit:{}", userId);
+
+        MemberDTO memberDTO =  memberService.findByUserId(userId);
+        model.addAttribute("member", memberDTO);
+        return "memberEdit";
     }
 }

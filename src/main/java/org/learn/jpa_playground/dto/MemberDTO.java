@@ -23,4 +23,6 @@ public class MemberDTO {
     private String userPhone;
 
     private String createdDate;
+
+    private String editDate;
 }

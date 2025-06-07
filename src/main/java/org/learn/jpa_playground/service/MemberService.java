@@ -67,5 +67,4 @@ public class MemberService {
                 .createdDate(String.valueOf(memberDomain.getCreatedDate()))
                 .build();
     }
-
 }

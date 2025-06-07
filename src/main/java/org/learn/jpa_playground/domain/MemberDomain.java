@@ -37,8 +37,13 @@ public class MemberDomain {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @Column(name = "edit_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date editdDate;
+
     @Builder
-    public MemberDomain(int uniqueKey, String userId, String userPassword, String userName, String userEmail, String userPhone, Date createdDate) {
+    public MemberDomain(int uniqueKey, String userId, String userPassword, String userName, String userEmail,
+                        String userPhone, Date createdDate, Date editdDate) {
         this.uniqueKey = uniqueKey;
         this.userId = userId;
         this.userPassword = userPassword;
@@ -46,5 +51,6 @@ public class MemberDomain {
         this.userEmail = userEmail;
         this.userPhone = userPhone;
         this.createdDate = createdDate;
+        this.editdDate = editdDate;
     }
 }

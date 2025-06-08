@@ -67,4 +67,21 @@ public class MemberService {
                 .createdDate(String.valueOf(memberDomain.getCreatedDate()))
                 .build();
     }
+
+    public MemberDomain update(MemberDTO memberDto) {
+        MemberDomain existing = memberRepository.findByUserId(memberDto.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("회원 없음"));
+
+        existing.setUserName(memberDto.getUserName());
+        existing.setUserEmail(memberDto.getUserEmail());
+        existing.setUserPhone(memberDto.getUserPhone());
+        existing.setEditdDate(new Date());
+
+        // 비밀번호 입력 시에만 암호화해서 반영
+        if (memberDto.getUserPassword() != null && !memberDto.getUserPassword().isBlank()) {
+            existing.setUserPassword(passwordEncoder.encode(memberDto.getUserPassword()));
+        }
+
+        return memberRepository.save(existing);
+    }
 }

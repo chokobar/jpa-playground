@@ -88,4 +88,11 @@ public class MemberController {
         model.addAttribute("member", memberDTO);
         return "memberEdit";
     }
+
+    @PostMapping("/members/{userId}/edit")
+    public String edit(@PathVariable String userId, @ModelAttribute MemberDTO member) {
+        log.info("Member edit2:{}", userId);
+        memberService.update(member);
+        return "redirect:/";
+    }
 }

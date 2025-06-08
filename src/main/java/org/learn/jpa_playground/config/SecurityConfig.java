@@ -14,15 +14,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // CSRF 비활성화
+                .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form
-                        .loginPage("/login")       // 사용자 정의 로그인 페이지
-                        .defaultSuccessUrl("/", true) // 로그인 성공 후 메인 페이지로 이동
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/save", "/join",
-                                "/member/**", "/member/members/**", "/css/**").permitAll()
+                        .requestMatchers(
+                                "/", "/login", "/save", "/join", "/css/**",
+                                "/member/signup", "/member/save",             // 회원가입
+                                "/member/members/**", "/member/**", "/members/**" // 수정/조회 등
+                        ).permitAll()
                         .anyRequest().authenticated()
                 );
 

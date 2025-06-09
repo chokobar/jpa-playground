@@ -95,4 +95,11 @@ public class MemberController {
         memberService.update(member);
         return "redirect:/";
     }
+
+    @GetMapping("/members/{userId}/remove")
+    public String memberRemove(@PathVariable("userId") String userId) {
+        log.info("Member remove:{}", userId);
+        memberService.memberRemove(userId);
+        return "redirect:/";
+    }
 }

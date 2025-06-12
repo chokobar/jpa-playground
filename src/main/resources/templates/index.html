@@ -1,37 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Start</title>
+  <title>JPA 간단한 실습</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
   <style>
     body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f1f3f5;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      height: 100vh;
-      margin: 0;
-      font-family: Arial, sans-serif;
     }
 
     header {
-      background-color: #f8f9fa;
-      padding: 10px 20px;
+      background-color: #ffffff;
+      padding: 15px 30px;
+      border-bottom: 1px solid #dee2e6;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #dee2e6;
     }
 
     header h1 {
       margin: 0;
       font-size: 24px;
-      color: #343a40;
+      color: #212529;
     }
 
     .auth-links a {
-      margin-left: 15px;
+      margin-left: 20px;
       text-decoration: none;
-      color: #007bff;
-      font-weight: bold;
+      color: #0d6efd;
+      font-weight: 500;
     }
 
     .auth-links a:hover {
@@ -44,39 +46,53 @@
     }
 
     .sidebar {
-      background-color: #e9ecef;
-      width: 200px;
+      background-color: #343a40;
+      width: 220px;
       padding: 20px;
+      color: white;
+      display: flex;
+      flex-direction: column;
     }
 
     .sidebar h2 {
-      margin-top: 0;
-    }
-
-    .sidebar li {
-      list-style: none;
-      margin: 10px 0;
+      font-size: 18px;
+      margin-bottom: 20px;
     }
 
     .sidebar a {
+      color: #ced4da;
       text-decoration: none;
-      color: #343a40;
+      padding: 8px 12px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      transition: background-color 0.2s;
     }
 
     .sidebar a:hover {
-      text-decoration: underline;
+      background-color: #495057;
+      color: #fff;
     }
 
     .main {
       flex: 1;
-      padding: 20px;
+      padding: 40px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      margin: 20px;
+      border-radius: 8px;
+    }
+
+    .main p {
+      font-size: 20px;
+      color: #343a40;
     }
 
     footer {
-      background-color: #f8f9fa;
-      padding: 10px;
+      background-color: #ffffff;
+      padding: 15px;
       text-align: center;
       border-top: 1px solid #dee2e6;
+      color: #6c757d;
     }
   </style>
 </head>
@@ -85,31 +101,26 @@
 <header>
   <h1>JPA 간단한 실습</h1>
   <div class="auth-links">
-    <a th:href="@{/login}">로그인</a> &nbsp;&nbsp;&nbsp;|
+    <a th:href="@{/login}">로그인</a>
     <a th:href="@{/member/signup}">회원가입</a>
   </div>
 </header>
 
 <div class="container">
-  <div class="sidebar">
-    <h2>Left 영역</h2>
-    <!-- 필요 시 사이드바 메뉴를 여기에 추가 -->
-    <!--
-    <ul>
-      <li><a th:href="@{/member/signUp}">회원가입</a></li>
-      <li><a th:href="@{/some-other-link}">비고</a></li>
-    </ul>
-    -->
-    <a th:href="@{/member/members}">회원List</a>
-  </div>
-  <div class="main">
-    <!-- 본문 내용이 여기에 들어갑니다 -->
+  <aside class="sidebar">
+    <h2>메뉴</h2>
+    <a th:href="@{/member/members}">👥 회원 목록</a>
+    <!-- 필요 시 더 추가 가능 -->
+    <!-- <a th:href="@{/dashboard}">📊 대시보드</a> -->
+  </aside>
+
+  <main class="main">
     <p th:text="'안녕하세요, ' + ${userName} + '님!'">안녕하세요, 사용자님!</p>
-  </div>
+  </main>
 </div>
 
 <footer>
-  <p>Footer 영역</p>
+  <p>&copy; 2025 JPA Practice Page</p>
 </footer>
 
 </body>

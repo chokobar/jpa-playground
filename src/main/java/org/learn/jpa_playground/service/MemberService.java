@@ -84,4 +84,10 @@ public class MemberService {
 
         return memberRepository.save(existing);
     }
+
+    @Transactional
+    public void memberRemove(String userId) {
+        memberRepository.deleteByUserId(userId);
+    }
+
 }

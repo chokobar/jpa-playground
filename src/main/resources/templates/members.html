@@ -1,41 +1,85 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>회원 목록</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        table th {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+
+        table td, table th {
+            vertical-align: middle;
+        }
+
+        .btn-group-custom a {
+            width: 48%;
+        }
+
+        @media (max-width: 576px) {
+            .btn-group-custom {
+                flex-direction: column;
+            }
+
+            .btn-group-custom a {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card p-4 shadow" style="width: 800px;">
+<div class="d-flex justify-content-center align-items-center vh-100 px-2">
+    <div class="card p-4 bg-white">
         <h3 class="text-center mb-4">회원 목록</h3>
-        <table class="table table-bordered table-striped text-center">
-            <thead class="table-light">
-            <tr>
-                <th>번호</th>
-                <th>아이디</th>
-                <th>이름</th>
-                <th>이메일</th>
-                <th>휴대폰 번호</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user , userStat : ${members}">
-                <td th:text="${userStat.index + 1}">uniqueKey</td>
-                <td>
-                    <a th:href="@{/member/members/{userId}(userId=${user.userId})}"
-                       th:text="${user.userId}">userId</a>
-                </td>
-                <td th:text="${user.userName}">userName</td>
-                <td th:text="${user.userEmail}">userEmail</td>
-                <td th:text="${user.userPhone}">userPhone</td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="d-flex justify-content-between mt-3">
-            <a class="btn btn-primary" th:href="@{/}">메인이동</a>
-            <a class="btn btn-success" th:href="@{/member/signup}">회원가입</a>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>번호</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>휴대폰 번호</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, userStat : ${members}">
+                    <td th:text="${userStat.index + 1}">1</td>
+                    <td>
+                        <a th:href="@{/member/members/{userId}(userId=${user.userId})}"
+                           th:text="${user.userId}">userId</a>
+                    </td>
+                    <td th:text="${user.userName}">userName</td>
+                    <td th:text="${user.userEmail}">userEmail</td>
+                    <td th:text="${user.userPhone}">userPhone</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(members)}">
+                    <td colspan="5" class="text-muted">등록된 회원이 없습니다.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4 btn-group-custom">
+            <a class="btn btn-outline-secondary" th:href="@{/}">🏠 메인으로</a>
+            <a class="btn btn-success" th:href="@{/member/signup}">➕ 회원가입</a>
         </div>
 
     </div>

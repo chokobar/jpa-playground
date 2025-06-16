@@ -85,6 +85,7 @@ public class MemberController {
         log.info("Member edit:{}", userId);
 
         MemberDTO memberDTO =  memberService.findByUserId(userId);
+        log.info("Member edit2:{}", memberDTO);
         model.addAttribute("member", memberDTO);
         return "memberEdit";
     }
@@ -93,6 +94,14 @@ public class MemberController {
     public String edit(@PathVariable String userId, @ModelAttribute MemberDTO member) {
         log.info("Member edit2:{}", userId);
         memberService.update(member);
+        return "redirect:/";
+    }
+
+    @GetMapping("/members/{userId}/passwordEdit")
+    public String passwordEdit(@PathVariable String userId) {
+        log.info("Member passwordEdit:{}", userId);
+        String initPassword = "12345";
+        memberService.passwordUpdate(userId, initPassword);
         return "redirect:/";
     }
 

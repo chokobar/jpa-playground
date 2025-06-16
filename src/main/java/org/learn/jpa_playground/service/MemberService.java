@@ -85,6 +85,19 @@ public class MemberService {
         return memberRepository.save(existing);
     }
 
+    public MemberDomain passwordUpdate(String userId, String newPassword) {
+        MemberDomain existing = memberRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("회원 없음"));
+
+        existing.setUserPassword(passwordEncoder.encode(newPassword));
+        existing.setEditdDate(new Date());
+
+        return memberRepository.save(existing);
+    }
+
+
+
+
     @Transactional
     public void memberRemove(String userId) {
         memberRepository.deleteByUserId(userId);

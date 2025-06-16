@@ -36,6 +36,12 @@
         <label for="userId">회원 아이디</label>
       </div>
 
+      <a th:href="@{|/member/members/${member.userId}/passwordEdit|}"
+         class="btn btn-outline-danger w-100"
+         onclick="return confirm('비밀번호를 초기화하시겠습니까?\n초기 비밀번호는 \'12345\' 입니다');">
+        비밀번호 초기화
+      </a>
+
       <div class="form-floating mb-3">
         <input type="text" id="userName" name="userName" class="form-control" th:field="*{userName}" placeholder="회원 이름">
         <label for="userName">회원 이름</label>

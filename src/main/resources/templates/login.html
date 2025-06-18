@@ -5,12 +5,39 @@
     <title>로그인</title>
     <!-- Bootstrap CSS 연결 -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <style>
+        .btn-main-top {
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            margin-left: auto;
+            background: #007bff; /* 파란색 */
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-main-top:hover {
+            background: #0069d9; /* hover 시 더 진한 파란색 */
+        }
+
+        .login-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    </style>
 </head>
 <body>
 
 <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="card p-4 shadow" style="width: 400px;">
-        <h3 class="text-center mb-4">로그인</h3>
+        <div class="login-header mb-4">
+            <h3 class="mb-0">로그인</h3>
+            <a th:href="@{/}" class="btn btn-main-top">메인화면</a>
+        </div>
         <form method="post" th:action="@{/login}">
             <div class="mb-3">
                 <label for="username" class="form-label">아이디</label>

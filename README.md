@@ -16,7 +16,7 @@ Spring Boot + JPA 기반으로 간단한 게시판/회원 시스템을 구현했
 
 
 ## 🔍 주요 기능
-- 회원가입 / 로그인 [진행중]
+- 회원가입 / 로그인
 - 게시글 CRUD[진행중]
 - Entity 간 연관관계 설정 (OneToMany, ManyToOne 등) [진행중]
 

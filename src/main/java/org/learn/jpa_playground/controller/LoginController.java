@@ -49,4 +49,13 @@ public class LoginController {
             return "login";
         }
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        log.info("logout start");
+        log.info("session id : {}", session.getId());
+        //session.removeAttribute("member");  //로그인 정보만 비워두고 세션은 유지
+        session.invalidate();   // 현재 세션 자체를 완전히 파기(보안상 안전)
+        return "redirect:/";
+    }
 }

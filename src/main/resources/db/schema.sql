@@ -1,5 +1,5 @@
 -- `jpa-playground`.`user` definition
-
+-- 사용자 테이블
 CREATE TABLE `user` (
     `uniqueKey` int NOT NULL AUTO_INCREMENT COMMENT '유니크키',
     `userId` varchar(100) DEFAULT NULL COMMENT '사용자 아이디',
@@ -11,3 +11,15 @@ CREATE TABLE `user` (
     `edit_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '사용자 수정날짜',
     PRIMARY KEY (`uniqueKey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- `jpa-playground`.`board` definition
+-- 게시판 테이블
+CREATE TABLE board (
+   id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '게시글 ID',
+   title VARCHAR(255) NOT NULL COMMENT '제목',
+   content TEXT NOT NULL COMMENT '내용',
+   writer VARCHAR(100) NOT NULL COMMENT '작성자',
+   created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '작성일시',
+   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
+   view_count INT DEFAULT 0 COMMENT '조회수'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

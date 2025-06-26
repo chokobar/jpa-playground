@@ -7,6 +7,8 @@ import org.learn.jpa_playground.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,8 +39,13 @@ public class MemberController {
      * @return
      */
     @PostMapping("/save")
-    public String memberSave(@ModelAttribute MemberDTO memberDto) {
+    public String memberSave(@Validated @ModelAttribute MemberDTO memberDto, BindingResult bindingResult) {
         log.info("Member save:{}", memberDto);
+
+        if (bindingResult.hasErrors()) {
+            log.warn("Validation errors: {}", bindingResult.getAllErrors());
+            return "signup";
+        }
 
         memberService.save(memberDto);
         return "redirect:/";

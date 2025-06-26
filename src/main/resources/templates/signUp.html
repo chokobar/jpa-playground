@@ -13,24 +13,34 @@
     <form th:action="@{/member/save}" th:object="${memberDTO}" method="post">
       <div class="mb-3">
         <label for="userId" class="form-label">아이디</label>
-        <input type="text" class="form-control" id="userId" th:field="*{userId}" required>
+        <input type="text" class="form-control" id="userId" th:field="*{userId}">
+        <div class="text-danger" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></div>
       </div>
+
       <div class="mb-3">
         <label for="userPassword" class="form-label">비밀번호</label>
-        <input type="password" class="form-control" id="userPassword" th:field="*{userPassword}" required>
+        <input type="password" class="form-control" id="userPassword" th:field="*{userPassword}">
+        <div class="text-danger" th:if="${#fields.hasErrors('userPassword')}" th:errors="*{userPassword}"></div>
       </div>
+
       <div class="mb-3">
         <label for="userName" class="form-label">이름</label>
-        <input type="text" class="form-control" id="userName" th:field="*{userName}" required>
+        <input type="text" class="form-control" id="userName" th:field="*{userName}">
+        <div class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></div>
       </div>
+
       <div class="mb-3">
         <label for="userEmail" class="form-label">이메일</label>
         <input type="email" class="form-control" id="userEmail" th:field="*{userEmail}">
+        <div class="text-danger" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}"></div>
       </div>
+
       <div class="mb-3">
         <label for="userPhone" class="form-label">휴대폰 번호</label>
         <input type="tel" class="form-control" id="userPhone" th:field="*{userPhone}">
+        <div class="text-danger" th:if="${#fields.hasErrors('userPhone')}" th:errors="*{userPhone}"></div>
       </div>
+
       <div class="d-flex justify-content-between mt-3">
         <a class="btn btn-primary w-50 me-2" th:href="@{/}">메인이동</a>
         <button type="submit" class="btn btn-success w-50">가입하기</button>

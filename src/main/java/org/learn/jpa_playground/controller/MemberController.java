@@ -3,7 +3,7 @@ package org.learn.jpa_playground.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.learn.jpa_playground.config.MemberDTOValidator;
+import org.learn.jpa_playground.config.ValidatorConfig;
 import org.learn.jpa_playground.dto.MemberDTO;
 import org.learn.jpa_playground.service.MemberService;
 import org.springframework.stereotype.Controller;
@@ -22,12 +22,12 @@ import java.util.List;
 @RequestMapping("/member")
 public class MemberController {
 
-    private final MemberDTOValidator memberDTOValidator;
+    private final ValidatorConfig validatorConfig;
     private final MemberService memberService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.addValidators(memberDTOValidator);
+        binder.addValidators(validatorConfig);
     }
 
     /**

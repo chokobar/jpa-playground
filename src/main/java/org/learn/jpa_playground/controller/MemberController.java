@@ -1,14 +1,16 @@
 package org.learn.jpa_playground.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.learn.jpa_playground.config.MemberDTOValidator;
 import org.learn.jpa_playground.dto.MemberDTO;
 import org.learn.jpa_playground.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,11 +18,17 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
 
-    @Autowired
-    private MemberService memberService;
+    private final MemberDTOValidator memberDTOValidator;
+    private final MemberService memberService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(memberDTOValidator);
+    }
 
     /**
      * 회원 가입

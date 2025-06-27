@@ -36,7 +36,6 @@ public class LoginController {
         log.info("userid : {}, userPassword : {}", userId, userPassword);
         try {
             MemberDomain member = loginService.login(userId, userPassword);
-            //model.addAttribute("member", member);
             session.setAttribute("member", member);
 
             UsernamePasswordAuthenticationToken auth =

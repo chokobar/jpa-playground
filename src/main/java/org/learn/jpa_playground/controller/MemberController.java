@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.learn.jpa_playground.config.ValidatorConfig;
 import org.learn.jpa_playground.dto.MemberDTO;
+import org.learn.jpa_playground.form.MemberSaveForm;
+import org.learn.jpa_playground.form.MemberUpdateForm;
 import org.learn.jpa_playground.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,7 @@ public class MemberController {
         binder.addValidators(validatorConfig);
     }
 
+
     /**
      * 회원 가입
      * @param model
@@ -47,7 +50,7 @@ public class MemberController {
      * @return
      */
     @PostMapping("/save")
-    public String memberSave(@Validated @ModelAttribute MemberDTO memberDto, BindingResult bindingResult) {
+    public String memberSave(@Validated @ModelAttribute("memberDTO") MemberSaveForm memberDto, BindingResult bindingResult) {
         log.info("Member save:{}", memberDto);
 
         if (bindingResult.hasErrors()) {
@@ -55,7 +58,15 @@ public class MemberController {
             return "signup";
         }
 
-        memberService.save(memberDto);
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setUniqueKey(memberDto.getUniqueKey());
+        memberDTO.setUserId(memberDto.getUserId());
+        memberDTO.setUserPassword(memberDto.getUserPassword());
+        memberDTO.setUserName(memberDto.getUserName());
+        memberDTO.setUserEmail(memberDto.getUserEmail());
+        memberDTO.setUserPhone(memberDto.getUserPhone());
+
+        memberService.save(memberDTO);
         return "redirect:/";
     }
 
@@ -106,9 +117,24 @@ public class MemberController {
     }
 
     @PostMapping("/members/{userId}/edit")
-    public String edit(@PathVariable String userId, @ModelAttribute MemberDTO member) {
+    public String edit(@PathVariable String userId, @Validated @ModelAttribute("member") MemberUpdateForm memberDto,
+                       BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            log.warn("Validation errors: {}", bindingResult.getAllErrors());
+            model.addAttribute("member", memberDto);
+            return "memberEdit";
+        }
+
+        MemberDTO memberDTO = new MemberDTO();
+
+        memberDTO.setUserId(userId);
+        memberDTO.setUserName(memberDto.getUserName());
+        memberDTO.setUserEmail(memberDto.getUserEmail());
+        memberDTO.setUserPhone(memberDto.getUserPhone());
+
         log.info("Member edit2:{}", userId);
-        memberService.update(member);
+        memberService.update(memberDTO);
         return "redirect:/";
     }
 

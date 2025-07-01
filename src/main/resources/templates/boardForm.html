@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow" style="width: 500px;">
+        <h3 class="text-center mb-4">게시글 작성</h3>
+<!--        <form th:action="@{/board/save}" th:object="${boardDTO}" method="post">-->
+        <form  method="post">
+            <div class="mb-3">
+                <label for="title" class="form-label">제목</label>
+<!--                <input type="text" class="form-control" id="title" th:field="*{title}">-->
+                <input type="text" class="form-control" id="title">
+<!--                <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>-->
+                <div class="text-danger" ></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="writer" class="form-label">작성자</label>
+<!--                <input type="text" class="form-control" id="writer" th:field="*{writer}">-->
+                <input type="text" class="form-control" id="writer" >
+                <div class="text-danger"></div>
+<!--                <div class="text-danger" th:if="${#fields.hasErrors('writer')}" th:errors="*{writer}"></div>-->
+            </div>
+
+            <div class="mb-3">
+                <label for="content" class="form-label">내용</label>
+<!--                <textarea class="form-control" id="content" th:field="*{content}" rows="5"></textarea>-->
+                <textarea class="form-control" id="content" rows="5"></textarea>
+                <div class="text-danger" ></div>
+<!--                <div class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>-->
+            </div>
+
+            <div class="d-flex justify-content-between mt-3">
+<!--                <a class="btn btn-primary w-50 me-2" th:href="@{/board/list}">목록이동</a>-->
+                <a class="btn btn-primary w-50 me-2">목록이동</a>
+                <button type="submit" class="btn btn-success w-50">등록하기</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

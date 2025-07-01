@@ -26,7 +26,8 @@ public class SecurityConfig {
                                 "/member/save",
                                 "/member/members/**",
                                 "/member/**",
-                                "/members/**"
+                                "/members/**",
+                                "/board/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 );

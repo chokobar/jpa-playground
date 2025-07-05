@@ -1,6 +1,7 @@
 package org.learn.jpa_playground.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -36,4 +37,17 @@ public class BoardDomain {
 
     @Column(name = "view_count")
     private Integer viewCount;
+
+    @Builder
+    public BoardDomain(int id, String title, String content,
+                       String writer, Date createdDate,
+                       Date updated_date, Integer viewCount) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.createdDate = createdDate;
+        this.updated_date = updated_date;
+        this.viewCount = viewCount;
+    }
 }

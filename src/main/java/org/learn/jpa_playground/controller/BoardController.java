@@ -22,7 +22,6 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
-    private final MemberService memberService;
 
     @GetMapping("/boardForm")
     public String boardForm(Model model, @SessionAttribute("member") MemberDomain member) {
@@ -34,7 +33,7 @@ public class BoardController {
     }
 
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute("BoardDTO") BoardDTO boardDTO, BindingResult bindingResult) {
+    public String boardSave(@Validated @ModelAttribute("BoardDTO") BoardDTO boardDTO, BindingResult bindingResult) {
         log.info("Board Save:{}", boardDTO);
 
         if (bindingResult.hasErrors()) {

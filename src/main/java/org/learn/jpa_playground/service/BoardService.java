@@ -9,6 +9,8 @@ import org.learn.jpa_playground.repository.BoardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -28,5 +30,19 @@ public class BoardService {
                 .build();
 
         return boardRepository.save(boardDomain);
+    }
+
+    @Transactional
+    public List<BoardDTO> findAll() {
+        return boardRepository.findAll()
+                .stream()
+                .map(boardDomain -> BoardDTO.builder()
+                        .title(boardDomain.getTitle())
+                        .content(boardDomain.getContent())
+                        .writer(boardDomain.getWriter())
+                        .viewCount(boardDomain.getViewCount())
+                        .createdDate(String.valueOf(boardDomain.getCreatedDate()))
+                        .build())
+                .collect(Collectors.toList());
     }
 }

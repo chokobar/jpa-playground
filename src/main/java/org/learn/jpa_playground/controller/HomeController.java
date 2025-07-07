@@ -8,6 +8,7 @@ import org.learn.jpa_playground.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -27,6 +28,14 @@ public class HomeController {
         List<BoardDTO> boardLists = boardService.findAll();
         model.addAttribute("boardLists", boardLists);
         return "index";
+    }
+
+    @GetMapping("board/{id}")
+    public String board(@PathVariable Integer id, Model model) {
+        log.info("id : " + id);
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("boardDTO", boardDTO);
+        return "board";
     }
 
 }

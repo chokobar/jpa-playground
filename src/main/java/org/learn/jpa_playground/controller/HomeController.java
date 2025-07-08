@@ -27,7 +27,7 @@ public class HomeController {
         model.addAttribute("member", member);
         List<BoardDTO> boardLists = boardService.findAll();
         model.addAttribute("boardLists", boardLists);
-        return "index";
+        return "home/home";
     }
 
     @GetMapping("board/{id}")
@@ -35,7 +35,7 @@ public class HomeController {
         log.info("id : " + id);
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardDTO", boardDTO);
-        return "board";
+        return "board/board";
     }
 
 }

@@ -41,7 +41,7 @@ public class MemberController {
     @GetMapping("/signup")
     public String signUp(Model model) {
         model.addAttribute("memberDTO", new MemberDTO());
-        return "signUp";
+        return "member/signUp";
     }
 
     /**
@@ -55,7 +55,7 @@ public class MemberController {
 
         if (bindingResult.hasErrors()) {
             log.warn("Validation errors: {}", bindingResult.getAllErrors());
-            return "signup";
+            return "member/signUp";
         }
 
         MemberDTO memberDTO = new MemberDTO();
@@ -80,7 +80,7 @@ public class MemberController {
         List<MemberDTO> members = memberService.findAll();
         log.info("Member list:{}", members);
         model.addAttribute("members", members);
-        return "members";
+        return "member/members";
     }
 
     /**
@@ -97,7 +97,7 @@ public class MemberController {
         // 새롭게 findByUserId 메서드를 만들어야함
         MemberDTO memberDTO =  memberService.findByUserId(userId);
         model.addAttribute("member", memberDTO);
-        return "memberDetails";
+        return "member/memberDetails";
     }
 
     /**
@@ -113,7 +113,7 @@ public class MemberController {
         MemberDTO memberDTO =  memberService.findByUserId(userId);
         log.info("Member edit2:{}", memberDTO);
         model.addAttribute("member", memberDTO);
-        return "memberEdit";
+        return "member/memberEdit";
     }
 
     @PostMapping("/members/{userId}/edit")
@@ -123,7 +123,7 @@ public class MemberController {
         if (bindingResult.hasErrors()) {
             log.warn("Validation errors: {}", bindingResult.getAllErrors());
             model.addAttribute("member", memberDto);
-            return "memberEdit";
+            return "member/memberEdit";
         }
 
         MemberDTO memberDTO = new MemberDTO();

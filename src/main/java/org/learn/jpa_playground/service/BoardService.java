@@ -45,4 +45,21 @@ public class BoardService {
                         .build())
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public BoardDTO findById(Integer id) {
+        BoardDomain boardDomain = boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id=" + id));
+
+        return BoardDTO.builder()
+                .id((long) boardDomain.getId())
+                .title(boardDomain.getTitle())
+                .content(boardDomain.getContent())
+                .writer(boardDomain.getWriter())
+                .createdDate(String.valueOf(boardDomain.getCreatedDate()))
+                .updatedDate(String.valueOf(boardDomain.getUpdated_date()))
+                .viewCount(boardDomain.getViewCount())
+                .build();
+    }
+
 }

@@ -140,8 +140,8 @@
         <tr th:each="board, boardStat : ${boardLists}">
           <td th:text="${boardStat.index + 1}">1</td>
           <td class="text-start text-truncate" style="max-width: 200px;">
-<!--            <a th:text="${board.title}" th:href="@{'/board/detail/' + ${board.id}}" class="text-decoration-none text-dark">제목</a>-->
-            <a th:text="${board.title}"  class="text-decoration-none text-dark">제목</a>
+              <a th:href="@{/board/{id}(id=${board.id})}"
+                 th:text="${board.title}"  class="text-decoration-none text-dark">제목</a>
           </td>
           <td class="text-start text-truncate" style="max-width: 300px;" th:utext="${#strings.replace(board.content, '\n', '<br>')}">
             내용

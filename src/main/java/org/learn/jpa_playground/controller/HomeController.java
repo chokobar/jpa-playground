@@ -30,12 +30,6 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("board/{id}")
-    public String board(@PathVariable Integer id, Model model) {
-        log.info("id : " + id);
-        BoardDTO boardDTO = boardService.findById(id);
-        model.addAttribute("boardDTO", boardDTO);
-        return "board/boardDetail";
-    }
+
 
 }

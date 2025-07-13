@@ -37,6 +37,7 @@ public class BoardService {
         return boardRepository.findAll()
                 .stream()
                 .map(boardDomain -> BoardDTO.builder()
+                        .id((long) boardDomain.getId())
                         .title(boardDomain.getTitle())
                         .content(boardDomain.getContent())
                         .writer(boardDomain.getWriter())

@@ -20,7 +20,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/boardForm")
-    public String boardForm(Model model, @SessionAttribute("member") MemberDomain member) {
+    public String boardForm(Model model, @SessionAttribute(value = "member", required = false) MemberDomain member) {
         log.info("boardForm 진입");
         BoardDTO dto = new BoardDTO();
         dto.setWriter(member.getUserName());
@@ -44,5 +44,14 @@ public class BoardController {
 
         boardService.save(boardDTO);
         return "redirect:/";
+    }
+
+    @GetMapping("/{id}")
+    public String boardDetail(@PathVariable Integer id, Model model) {
+        log.info("===== boardDetail ====");
+        log.info("요청된 게시글 ID: {}", id);
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("board", boardDTO);
+        return "board/boardDetail";
     }
 }

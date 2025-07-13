@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 상세</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      background-color: #ffffff;
+    }
+
+    .card-header {
+      background-color: #ffffff;
+      border-bottom: 1px solid #dee2e6;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .card-header h3 {
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    .form-control[readonly],
+    .form-control:disabled {
+      background-color: #e9ecef;
+    }
+
+    .btn-group-custom a {
+      width: 48%;
+    }
+
+    @media (max-width: 576px) {
+      .btn-group-custom {
+        flex-direction: column;
+      }
+
+      .btn-group-custom a {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
+    textarea.form-control[readonly] {
+      resize: none;
+      min-height: 150px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4" style="width: 600px; max-width: 90%;">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3 class="card-title">게시글 상세 정보</h3>
+      <a class="btn btn-outline-secondary btn-sm" th:href="@{/}">메인으로</a>
+    </div>
+
+    <div class="mb-3">
+      <label for="title" class="form-label">제목</label>
+      <input type="text" id="title" class="form-control" th:value="${board.title}" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label for="writer" class="form-label">작성자</label>
+      <input type="text" id="writer" class="form-control" th:value="${board.writer}" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label for="createdDate" class="form-label">작성 날짜</label>
+      <input type="text" id="createdDate" class="form-control" th:value="${board.createdDate}" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label for="viewCount" class="form-label">조회수</label>
+      <input type="text" id="viewCount" class="form-control" th:value="${board.viewCount}" readonly>
+    </div>
+
+    <div class="mb-4">
+      <label for="content" class="form-label">작성내용</label>
+      <textarea id="content" class="form-control" readonly
+                th:text="${board.content}">내용</textarea>
+    </div>
+
+    <div class="d-flex justify-content-between btn-group-custom">
+      <!-- 향후 삭제/수정 버튼 추가 가능 -->
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

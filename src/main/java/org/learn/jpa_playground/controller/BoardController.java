@@ -48,7 +48,7 @@ public class BoardController {
 
     @GetMapping("/{id}")
     public String boardDetail(@PathVariable Integer id, Model model) {
-        log.info("===== boardDetail ====");
+        log.info("=====boardDetail====");
         log.info("요청된 게시글 ID: {}", id);
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);

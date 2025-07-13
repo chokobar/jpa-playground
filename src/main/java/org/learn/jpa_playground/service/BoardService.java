@@ -50,7 +50,7 @@ public class BoardService {
     @Transactional
     public BoardDTO findById(Integer id) {
         BoardDomain boardDomain = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. ID:" + id));
 
         return BoardDTO.builder()
                 .id((long) boardDomain.getId())

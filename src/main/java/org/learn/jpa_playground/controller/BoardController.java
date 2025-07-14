@@ -50,6 +50,7 @@ public class BoardController {
     public String boardDetail(@PathVariable Integer id, Model model) {
         log.info("=====boardDetail====");
         log.info("요청된 게시글 ID: {}", id);
+        boardService.updateView(id);
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
         return "board/boardDetail";

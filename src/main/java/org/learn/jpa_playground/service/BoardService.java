@@ -63,4 +63,9 @@ public class BoardService {
                 .build();
     }
 
+    @Transactional
+    public int updateView(Integer id){
+        return boardRepository.updateView(Long.valueOf(id));
+    }
+
 }

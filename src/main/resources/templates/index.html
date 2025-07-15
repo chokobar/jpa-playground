@@ -102,7 +102,7 @@
   <h1>JPA 간단한 실습</h1>
   <div class="auth-links">
     <a th:if="${session.member == null}" th:href="@{/auth/login}">로그인</a>
-    <a th:href="@{/member/signup}">회원가입</a>
+    <a th:href="@{/member/save}">회원가입</a>
     <a th:if="${session.member != null}" th:href="@{/auth/logout}">로그아웃</a>
   </div>
 </header>

@@ -38,10 +38,10 @@ public class MemberController {
      * @param model
      * @return
      */
-    @GetMapping("/signup")
+    @GetMapping("/save")
     public String signUp(Model model) {
         model.addAttribute("memberDTO", new MemberDTO());
-        return "member/signUp";
+        return "member/memberAdd";
     }
 
     /**
@@ -55,7 +55,7 @@ public class MemberController {
 
         if (bindingResult.hasErrors()) {
             log.warn("Validation errors: {}", bindingResult.getAllErrors());
-            return "member/signUp";
+            return "member/memberAdd";
         }
 
         MemberDTO memberDTO = new MemberDTO();
@@ -80,7 +80,7 @@ public class MemberController {
         List<MemberDTO> members = memberService.findAll();
         log.info("Member list:{}", members);
         model.addAttribute("members", members);
-        return "member/members";
+        return "member/memberList";
     }
 
     /**

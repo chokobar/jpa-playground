@@ -22,7 +22,7 @@ public class SecurityConfig {
                                 "/auth/logout",
                                 "/save",
                                 "/join", "/css/**",
-                                "/member/signup",
+                                "/member/memberAdd",
                                 "/member/save",
                                 "/member/members/**",
                                 "/member/**",

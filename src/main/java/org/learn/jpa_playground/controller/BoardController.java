@@ -55,4 +55,14 @@ public class BoardController {
         model.addAttribute("board", boardDTO);
         return "board/boardDetail";
     }
+
+    @GetMapping("/edit/{id}")
+    public String boardEditForm(@PathVariable Integer id, Model model) {
+        log.info("=====boardEditForm====");
+        log.info("요청된 게시글 ID: {}", id);
+        boardService.updateView(id);
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("board", boardDTO);
+        return "board/boardEditForm";
+    }
 }

@@ -65,4 +65,17 @@ public class BoardController {
         model.addAttribute("board", boardDTO);
         return "board/boardEditForm";
     }
+
+    @PostMapping("/edit/{id}")
+    public String boardEditSubmit(@PathVariable Integer id, @ModelAttribute("board") BoardDTO boardDTO) {
+        log.info("=====boardEditForm수정====");
+        log.info("ID: {}", id);
+        log.info("전달된 DTO: {}", boardDTO);
+
+        boardDTO.setId(boardDTO.getId());
+
+        boardService.update(boardDTO);
+
+        return "redirect:/board/" + id;
+    }
 }

@@ -42,7 +42,7 @@ public class BoardService {
                         .content(boardDomain.getContent())
                         .writer(boardDomain.getWriter())
                         .viewCount(boardDomain.getViewCount())
-                        .createdDate(String.valueOf(boardDomain.getCreatedDate()))
+                        .createdDate(String.valueOf(new Date()))
                         .build())
                 .collect(Collectors.toList());
     }
@@ -57,8 +57,8 @@ public class BoardService {
                 .title(boardDomain.getTitle())
                 .content(boardDomain.getContent())
                 .writer(boardDomain.getWriter())
-                .createdDate(String.valueOf(boardDomain.getCreatedDate()))
-                .updatedDate(String.valueOf(boardDomain.getUpdated_date()))
+                .createdDate(String.valueOf(new Date()))
+                .updatedDate(String.valueOf(boardDomain.getUpdatedDate()))
                 .viewCount(boardDomain.getViewCount())
                 .build();
     }
@@ -66,6 +66,18 @@ public class BoardService {
     @Transactional
     public int updateView(Integer id){
         return boardRepository.updateView(Long.valueOf(id));
+    }
+
+    public BoardDomain update(BoardDTO boardDTO) {
+        // DTO를 Entity 변환
+        BoardDomain board = boardRepository.findById(boardDTO.getId().intValue())
+                .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+
+        board.setTitle(boardDTO.getTitle());
+        board.setContent(boardDTO.getContent());
+        board.setUpdatedDate(new Date());
+
+        return boardRepository.save(board);
     }
 
 }

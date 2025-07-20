@@ -33,7 +33,7 @@ public class BoardDomain {
 
     @Column(name = "updated_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updated_date;
+    private Date updatedDate;
 
     @Column(name = "view_count")
     private Integer viewCount;
@@ -41,13 +41,13 @@ public class BoardDomain {
     @Builder
     public BoardDomain(int id, String title, String content,
                        String writer, Date createdDate,
-                       Date updated_date, Integer viewCount) {
+                       Date updatedDate, Integer viewCount) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.createdDate = createdDate;
-        this.updated_date = updated_date;
+        this.updatedDate = updatedDate;
         this.viewCount = viewCount;
     }
 }

@@ -60,8 +60,10 @@ public class BoardController {
     public String boardEditForm(@PathVariable Integer id, Model model) {
         log.info("=====boardEditForm====");
         log.info("요청된 게시글 ID: {}", id);
+
         boardService.updateView(id);
         BoardDTO boardDTO = boardService.findById(id);
+        log.info("날짜 데이터 확인 : {}", boardDTO.getCreatedDate());
         model.addAttribute("board", boardDTO);
         return "board/boardEditForm";
     }

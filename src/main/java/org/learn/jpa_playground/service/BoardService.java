@@ -8,6 +8,7 @@ import org.learn.jpa_playground.dto.BoardDTO;
 import org.learn.jpa_playground.repository.BoardRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,7 +43,7 @@ public class BoardService {
                         .content(boardDomain.getContent())
                         .writer(boardDomain.getWriter())
                         .viewCount(boardDomain.getViewCount())
-                        .createdDate(String.valueOf(new Date()))
+                        .createdDate(LocalDateTime.now())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -57,7 +58,7 @@ public class BoardService {
                 .title(boardDomain.getTitle())
                 .content(boardDomain.getContent())
                 .writer(boardDomain.getWriter())
-                .createdDate(String.valueOf(new Date()))
+                .createdDate(LocalDateTime.now())
                 .updatedDate(String.valueOf(boardDomain.getUpdatedDate()))
                 .viewCount(boardDomain.getViewCount())
                 .build();

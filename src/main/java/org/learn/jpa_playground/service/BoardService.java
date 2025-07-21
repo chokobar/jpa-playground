@@ -80,4 +80,9 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    @Transactional
+    public void delete(Integer id) {
+        boardRepository.deleteById(id);
+    }
+
 }

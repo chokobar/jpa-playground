@@ -73,9 +73,15 @@ public class BoardController {
         log.info("전달된 DTO: {}", boardDTO);
 
         boardDTO.setId(boardDTO.getId());
-
         boardService.update(boardDTO);
-
         return "redirect:/board/" + id;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String boardDelete(@PathVariable Integer id) {
+        log.info("=====boardDelete====");
+        log.info("BoardDelete ID: {}", id);
+        boardService.delete(id);
+        return "redirect:/";
     }
 }

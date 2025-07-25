@@ -146,7 +146,7 @@
             내용
           </td>
           <td th:text="${board.viewCount}">0</td>
-          <td th:text="${board.createdDate}">2025-07-06</td>
+          <td th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm:ss')}">2025-07-06</td>
         </tr>
 
         <tr th:if="${#lists.isEmpty(boardLists)}">

@@ -114,7 +114,7 @@
     <a th:href="@{/member/members}"> 회원 목록</a>
 
     <a th:if="${session.member != null}" th:href="@{/board/boardForm}"> 게시판 작성</a>
-    <a th:if="${session.member != null}" th:href="@{/product/productList}"> 상품 목록</a>
+    <a th:if="${session.member != null}" th:href="@{/product/productForm}"> 상품 등록</a>
 
     <!-- 필요 시 더 추가 가능 -->
     <!-- <a th:href="@{/dashboard}">📊 대시보드</a> -->

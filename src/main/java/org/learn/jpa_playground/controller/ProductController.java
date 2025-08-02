@@ -26,7 +26,7 @@ public class ProductController {
         return "product/productForm";
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public String processCreateForm(@ModelAttribute("product") ProductDTO dto) {
 
         ProductDTO productDTO = new ProductDTO();

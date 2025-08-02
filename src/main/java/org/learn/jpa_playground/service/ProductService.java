@@ -21,11 +21,11 @@ public class ProductService {
     @Transactional
     public ProductDomain save(ProductDTO productDTO) {
         ProductDomain productDomain = ProductDomain.builder()
-                .title(productDTO.getName()) // DTO의 name → Domain의 title
+                .name(productDTO.getName())
                 .description(productDTO.getDescription())
                 .price(productDTO.getPrice())
                 .stockQuantity(productDTO.getStockQuantity())
-                //.status(productDTO.getStatus())
+                .status(String.valueOf(productDTO.getStatus()))
                 .category(productDTO.getCategory())
                 .createdDate(new Date()) // 혹은 LocalDateTime.now() → Date로 변환
                 .build();

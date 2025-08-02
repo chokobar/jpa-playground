@@ -18,8 +18,8 @@ public class ProductDomain {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "description")
     private String description;
@@ -46,14 +46,14 @@ public class ProductDomain {
 
 
     @Builder
-    public ProductDomain(int id, String title,
+    public ProductDomain(int id, String name,
                          String description, Integer price,
                          Integer stockQuantity, String status,
                          String category, Date createdDate,
                          Date updatedDate)
     {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.description = description;
         this.price = price;
         this.stockQuantity = stockQuantity;

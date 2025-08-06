@@ -6,10 +6,14 @@ import org.learn.jpa_playground.dto.ProductDTO;
 import org.learn.jpa_playground.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -27,7 +31,12 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String processCreateForm(@ModelAttribute("product") ProductDTO dto) {
+    public String processCreateForm(@Validated @ModelAttribute("product") ProductDTO dto,
+                                    BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "product/productForm"; // 다시 폼으로
+        }
 
         ProductDTO productDTO = new ProductDTO();
         productDTO.getId();
@@ -42,4 +51,11 @@ public class ProductController {
         return "redirect:/";
     }
 
+    @GetMapping("/listForm")
+    public String showProductList(Model model) {
+        log.info("showProductList");
+        List<ProductDTO> product = productService.findAll();
+        model.addAttribute("products", product);
+        return "product/productList";
+    }
 }

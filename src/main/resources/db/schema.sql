@@ -26,14 +26,15 @@ CREATE TABLE board (
 
 -- `jpa-playground`.`product` definition
 -- 상품 테이블
-CREATE TABLE product (
-     id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '상품 ID (PK)',
-     name VARCHAR(255) NOT NULL COMMENT '상품명',
-     description TEXT COMMENT '상품 설명',
-     price INT NOT NULL COMMENT '상품 가격(원)',
-     stock_quantity INT DEFAULT 0 COMMENT '재고 수량',
-     status ENUM('AVAILABLE','SOLD_OUT','DISCONTINUED') DEFAULT 'AVAILABLE' COMMENT '상품 상태 (판매중, 품절, 단종)',
-     category VARCHAR(100) COMMENT '상품 카테고리 (예: 전자제품, 의류)',
-     created_date timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일시',
-     updated_date timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='상품 테이블';
+CREATE TABLE `product` (
+   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '상품 ID (PK)',
+   `name` varchar(255) NOT NULL COMMENT '상품명',
+   `description` text COMMENT '상품 설명',
+   `price` int NOT NULL COMMENT '상품 가격(원)',
+   `stock_quantity` int DEFAULT '0' COMMENT '재고 수량',
+   `status` enum('AVAILABLE','SOLD_OUT','DISCONTINUED') DEFAULT 'AVAILABLE' COMMENT '상품 상태 (판매중, 품절, 단종)',
+   `category` enum('ELECTRONICS','BOOKS','FOOD','ETC') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '상품 카테고리 (예: 전자제품, 도서, 식료품, 기타)',
+   `created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일시',
+   `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='상품 테이블';

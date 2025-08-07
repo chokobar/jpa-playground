@@ -32,7 +32,7 @@ public class ProductDTO {
 
     private ProductStatus status;  // ENUM 타입으로 선언
 
-    private String category;
+    private ProductCategory category;    // ENUM 타입으로 선언
 
     private String createdAt;  // 문자열로 변환해서 반환 (포맷팅용)
 

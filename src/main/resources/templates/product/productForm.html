@@ -46,7 +46,12 @@
 
             <div class="mb-3">
                 <label for="category" class="form-label">카테고리</label>
-                <input type="text" class="form-control" id="category" th:field="*{category}">
+                <select class="form-select" id="category" th:field="*{category}">
+                    <option value="ELECTRONICS">전자제품</option>
+                    <option value="BOOKS">도서</option>
+                    <option value="FOOD">식료품</option>
+                    <option value="ETC">기타</option>
+                </select>
             </div>
 
             <div class="d-flex justify-content-between mt-4">

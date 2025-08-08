@@ -4,12 +4,14 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.learn.jpa_playground.domain.ProductDomain;
+import org.learn.jpa_playground.dto.ProductCategory;
 import org.learn.jpa_playground.dto.ProductDTO;
+import org.learn.jpa_playground.dto.ProductStatus;
 import org.learn.jpa_playground.repository.ProductRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -26,11 +28,29 @@ public class ProductService {
                 .price(productDTO.getPrice())
                 .stockQuantity(productDTO.getStockQuantity())
                 .status(String.valueOf(productDTO.getStatus()))
-                .category(productDTO.getCategory())
+                .category(String.valueOf(productDTO.getCategory()))
                 .createdDate(new Date()) // 혹은 LocalDateTime.now() → Date로 변환
                 .build();
 
         return productRepository.save(productDomain);
+    }
+
+    @Transactional
+    public List <ProductDTO> findAll() {
+        return productRepository.findAll()
+                .stream()
+                .map(productDomain -> ProductDTO.builder()
+                        .id((long)productDomain.getId())
+                        .name(productDomain.getName())
+                        .description(productDomain.getDescription())
+                        .price(productDomain.getPrice())
+                        .stockQuantity(productDomain.getStockQuantity())
+                        .status(ProductStatus.valueOf(productDomain.getStatus()))
+                        .category(ProductCategory.valueOf(productDomain.getCategory()))
+                        .createdAt(String.valueOf(productDomain.getCreatedDate()))
+                        .updatedAt(String.valueOf(productDomain.getUpdatedDate()))
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }

@@ -78,12 +78,20 @@
               <span th:case="'AVAILABLE'">판매중</span>
               <span th:case="'SOLD_OUT'">품절</span>
               <span th:case="'DISCONTINUED'">단종</span>
-              <span th:case="*">-</span>
             </span>
           </td>
-          <td th:text="${product.category}">전자제품</td>
+          <td>
+            <span th:switch="${product.category.name()}">
+              <span th:case="'ELECTRONICS'">전자제품</span>
+              <span th:case="'BOOKS'">도서</span>
+              <span th:case="'FOOD'">식료품</span>
+              <span th:case="'ETC'">기타</span>
+            </span>
+          </td>
           <td th:text="${product.createdAt}">2025-08-01</td>
-          <td th:text="${product.updatedAt}">2025-08-02</td>
+          <td th:text="${#strings.isEmpty(product.updatedAt) or product.updatedAt == 'null' ? ' ' : product.updatedAt}"></td>
+
+
         </tr>
         <tr th:if="${#lists.isEmpty(products)}">
           <td colspan="9" class="text-muted">등록된 상품이 없습니다.</td>

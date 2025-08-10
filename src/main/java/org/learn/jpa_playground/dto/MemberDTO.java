@@ -28,6 +28,8 @@ public class MemberDTO {
     @NotBlank(message = "{userPhone.required}")
     private String userPhone;
 
+    private UserRole userRole;
+
     private String createdDate;
 
     private String editDate;

@@ -33,6 +33,9 @@ public class MemberDomain {
     @Column(name = "userPhone")
     private String userPhone;
 
+    @Column(name = "userRole")
+    private String userRole;
+
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -43,13 +46,14 @@ public class MemberDomain {
 
     @Builder
     public MemberDomain(int uniqueKey, String userId, String userPassword, String userName, String userEmail,
-                        String userPhone, Date createdDate, Date editdDate) {
+                        String userPhone, String userRole, Date createdDate, Date editdDate) {
         this.uniqueKey = uniqueKey;
         this.userId = userId;
         this.userPassword = userPassword;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPhone = userPhone;
+        this.userRole = userRole;
         this.createdDate = createdDate;
         this.editdDate = editdDate;
     }

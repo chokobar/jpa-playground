@@ -2,16 +2,14 @@ package org.learn.jpa_playground.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.learn.jpa_playground.domain.MemberDomain;
 import org.learn.jpa_playground.dto.ProductDTO;
 import org.learn.jpa_playground.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +22,10 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/productForm")
-    public String showCreateForm(Model model) {
+    public String showCreateForm(@SessionAttribute(value = "member", required = false) MemberDomain member , Model model) {
+        if (member == null || !member.getUserRole().equals("ADMIN")) {
+            return "redirect:/access-denied";
+        }
         ProductDTO dto = new ProductDTO();
         model.addAttribute("product", dto);
         return "product/productForm";
@@ -57,5 +58,13 @@ public class ProductController {
         List<ProductDTO> product = productService.findAll();
         model.addAttribute("products", product);
         return "product/productList";
+    }
+
+    @GetMapping("/{id}")
+    public String showProductDetail(@PathVariable Long id, Model model) {
+        log.info("showProductDetail");
+        ProductDTO productDTO =  productService.findById(id);
+        model.addAttribute("product", productDTO);
+        return "product/productDetail";
     }
 }

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>상품 상세</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    .badge {
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.5em 1.5em; /* 세로 0.5em, 가로 1.5em로 확대 */
+      min-width: 100px;     /* 최소 가로폭 설정 */
+      text-align: center;
+    }
+    .text-bg-secondary {
+      background-color: #6c757d !important;
+    }
+    .text-bg-success {
+      background-color: #198754 !important;
+    }
+    .text-bg-warning {
+      background-color: #ffc107 !important;
+      color: #000 !important; /* 노란 배경일 때 검은 글자 */
+    }
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+    }
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      background-color: #fff;
+    }
+    .card-header {
+      background-color: #fff;
+      border-bottom: 1px solid #dee2e6;
+      padding-bottom: 10px; margin-bottom: 20px;
+    }
+    .card-header h3 { margin: 0; font-weight: bold; }
+    .form-label { font-weight: bold; }
+    .form-control[readonly], .form-control:disabled { background-color: #e9ecef; }
+    .btn-outline-danger, .btn-outline-primary {
+      border-width: 2px; font-weight: bold; transition: all .3s ease-in-out; border-radius: 8px;
+    }
+    .btn-outline-danger:hover {
+      background-color: #dc3545; color:#fff; transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(220,53,69,0.3);
+    }
+    .btn-outline-primary:hover {
+      background-color: #0d6efd; color:#fff; transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(13,110,253,0.3);
+    }
+    .btn i { font-size: 1.2rem; }
+    @media (max-width: 576px) {
+      .btn-group-custom { flex-direction: column; }
+      .btn-group-custom a { width: 100%; margin-bottom: 10px; }
+    }
+    textarea.form-control[readonly] { resize: none; min-height: 150px; }
+  </style>
+</head>
+<body>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4" style="width: 700px; max-width: 92%;">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3 class="card-title">상품 상세</h3>
+      <a class="btn btn-outline-secondary btn-sm" th:href="@{/product/listForm}">목록으로</a>
+    </div>
+
+    <!-- 이름 -->
+    <div class="mb-3">
+      <label for="name" class="form-label">상품명</label>
+      <input type="text" id="name" class="form-control" th:value="${product.name}" readonly>
+    </div>
+
+    <!-- 카테고리 / 상태 -->
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label">카테고리</label>
+        <div>
+          <span class="badge text-bg-secondary px-3 py-2"
+                th:text="${product.category.name() == 'ELECTRONICS'} ? '전자제품' :
+               (${product.category.name() == 'BOOKS'} ? '도서' :
+               (${product.category.name() == 'FOOD'} ? '식료품' : '기타'))">카테고리
+          </span>
+        </div>
+      </div>
+      <div class="col">
+        <label class="form-label">상태</label>
+        <div>
+          <span class="badge px-3 py-2"
+                th:classappend="${product.status.name() == 'AVAILABLE'} ? ' text-bg-success' :
+                      (${product.status.name() == 'SOLD_OUT'} ? ' text-bg-warning' : ' text-bg-secondary')"
+                th:text="${product.status.name() == 'AVAILABLE'} ? '판매중' :
+               (${product.status.name() == 'SOLD_OUT'} ? '품절' : '단종')">상태
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 가격 / 재고 -->
+    <div class="row mb-3">
+      <div class="col">
+        <label for="price" class="form-label">가격</label>
+        <input type="text" id="price" class="form-control"
+               th:value="${#numbers.formatInteger(product.price, 3, 'COMMA')} + ' 원'" readonly>
+      </div>
+      <div class="col">
+        <label for="stockQuantity" class="form-label">재고 수량</label>
+        <input type="text" id="stockQuantity" class="form-control"
+               th:value="${#numbers.formatInteger(product.stockQuantity, 0, 'COMMA')} + ' 개'" readonly>
+      </div>
+    </div>
+
+    <!-- 생성/수정일 -->
+    <div class="row mb-3">
+      <div class="col">
+        <label for="createdAt" class="form-label">등록일</label>
+        <input type="text" id="createdAt" class="form-control"
+               th:value="${product.createdAt}" readonly>
+      </div>
+      <div class="col">
+        <label for="updatedAt" class="form-label">수정일</label>
+        <input type="text" id="updatedAt" class="form-control"
+               th:value="${#strings.isEmpty(product.updatedAt) or product.updatedAt == 'null' ? '-' : product.updatedAt}" readonly>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="description" class="form-label">상세 설명</label>
+      <textarea id="description" class="form-control" readonly
+                th:text="${product.description}">설명</textarea>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <a class="btn btn-outline-danger btn-lg d-flex align-items-center justify-content-center shadow-sm"
+         th:href="@{/product/delete/{id}(id=${product.id})}">
+        <i class="bi bi-trash-fill me-2"></i> 삭제
+      </a>
+      <a class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center shadow-sm"
+         th:href="@{/product/edit/{id}(id=${product.id})}">
+        <i class="bi bi-pencil-square me-2"></i> 수정
+      </a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

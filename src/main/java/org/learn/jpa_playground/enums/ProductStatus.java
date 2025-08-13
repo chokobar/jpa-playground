@@ -1,4 +1,4 @@
-package org.learn.jpa_playground.dto;
+package org.learn.jpa_playground.enums;
 
 public enum ProductStatus {
 

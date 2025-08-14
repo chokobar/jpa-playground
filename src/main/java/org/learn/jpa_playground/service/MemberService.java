@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.learn.jpa_playground.domain.MemberDomain;
 import org.learn.jpa_playground.dto.MemberDTO;
-import org.learn.jpa_playground.dto.UserRole;
+import org.learn.jpa_playground.enums.UserRole;
 import org.learn.jpa_playground.repository.MemberRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

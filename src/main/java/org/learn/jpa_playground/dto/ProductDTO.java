@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.learn.jpa_playground.enums.ProductCategory;
+import org.learn.jpa_playground.enums.ProductStatus;
 
 @Data
 @NoArgsConstructor

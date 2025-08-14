@@ -67,4 +67,12 @@ public class ProductController {
         model.addAttribute("product", productDTO);
         return "product/productDetail";
     }
+
+
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable Integer id) {
+        log.info("deleteProduct");
+        productService.delete(id);
+        return "redirect:/product/listForm";
+    }
 }

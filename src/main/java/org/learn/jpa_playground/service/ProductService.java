@@ -71,4 +71,9 @@ public class ProductService {
                 .build();
     }
 
+    @Transactional
+    public void delete(Integer id) {
+        productRepository.deleteById(id);
+    }
+
 }

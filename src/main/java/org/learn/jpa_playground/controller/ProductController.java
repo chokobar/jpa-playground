@@ -68,7 +68,6 @@ public class ProductController {
         return "product/productDetail";
     }
 
-
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Integer id) {
         log.info("deleteProduct");

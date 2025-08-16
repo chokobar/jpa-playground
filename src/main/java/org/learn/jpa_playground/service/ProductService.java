@@ -31,7 +31,6 @@ public class ProductService {
                 .category(String.valueOf(productDTO.getCategory()))
                 .createdDate(new Date()) // 혹은 LocalDateTime.now() → Date로 변환
                 .build();
-
         return productRepository.save(productDomain);
     }
 

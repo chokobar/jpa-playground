@@ -68,6 +68,14 @@ public class ProductController {
         return "product/productDetail";
     }
 
+    @GetMapping("/edit/{id}")
+    public String showProductEditForm(@PathVariable Long id, Model model) {
+        log.info("showProductEditForm");
+        ProductDTO productDTO =  productService.findById(id);
+        model.addAttribute("product", productDTO);
+        return "product/productEditForm";
+    }
+
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Integer id) {
         log.info("deleteProduct");

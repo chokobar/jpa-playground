@@ -36,7 +36,7 @@ public class ProductController {
                                     BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "product/productForm"; // 다시 폼으로
+            return "product/productForm";
         }
 
         ProductDTO productDTO = new ProductDTO();
@@ -49,7 +49,7 @@ public class ProductController {
         productDTO.setCategory(dto.getCategory());
 
         productService.save(dto);
-        return "redirect:/";
+        return "redirect:/product/listForm";
     }
 
     @GetMapping("/listForm")
@@ -74,6 +74,14 @@ public class ProductController {
         ProductDTO productDTO =  productService.findById(id);
         model.addAttribute("product", productDTO);
         return "product/productEditForm";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String processEditForm(@PathVariable Long id, @ModelAttribute("product") ProductDTO dto){
+        log.trace("dto : {}", dto);
+        dto.setId(id);
+        productService.update(dto);
+        return "redirect:/product/" + id;
     }
 
     @GetMapping("/delete/{id}")

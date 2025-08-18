@@ -55,7 +55,7 @@ public class ProductService {
     @Transactional
     public ProductDTO findById(Long id) {
         ProductDomain productDomain = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. ID:" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품은 존재하지 않습니다. ID:" + id));
 
         return ProductDTO.builder()
                 .id((long) productDomain.getId())
@@ -68,6 +68,21 @@ public class ProductService {
                 .createdAt(String.valueOf(productDomain.getCreatedDate()))
                 .updatedAt(String.valueOf(productDomain.getUpdatedDate()))
                 .build();
+    }
+
+    public ProductDomain update(ProductDTO productDTO) {
+        ProductDomain product = productRepository.findById(productDTO.getId().intValue())
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다."));
+
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        product.setStockQuantity(productDTO.getStockQuantity());
+        product.setCategory(String.valueOf(productDTO.getCategory()));
+        product.setStatus(String.valueOf(productDTO.getStatus()));
+        product.setUpdatedDate(new Date());
+
+        return productRepository.save(product);
     }
 
     @Transactional

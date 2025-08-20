@@ -71,8 +71,8 @@ public class BoardController {
     @PostMapping("/edit/{id}")
     public String boardEditSubmit(@PathVariable Integer id, @ModelAttribute("board") BoardDTO boardDTO) {
         log.info("=====boardEditForm수정====");
-        log.info("ID: {}", id);
-        log.info("전달된 DTO: {}", boardDTO);
+        log.trace("ID: {}", id);
+        log.trace("전달된 DTO: {}", boardDTO);
 
         boardDTO.setId(boardDTO.getId());
         boardService.update(boardDTO);

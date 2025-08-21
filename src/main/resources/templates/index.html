@@ -111,7 +111,8 @@
   <aside class="sidebar">
     <h2>메뉴</h2>
 <!--    <a th:href="@{/member/members}">👥 회원 목록</a>-->
-    <a th:href="@{/member/members}"> 회원 목록</a>
+<!--    <a th:href="@{/member/members}"> 회원 목록</a>-->
+    <a th:if="${session.member != null && session.member.userRole == 'ADMIN'}" th:href="@{/member/members}"> 회원 목록</a>
 
     <a th:if="${session.member != null}" th:href="@{/board/boardForm}"> 게시판 작성</a>
 

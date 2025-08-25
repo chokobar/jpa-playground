@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.learn.jpa_playground.domain.MemberDomain;
 import org.learn.jpa_playground.dto.ProductDTO;
+import org.learn.jpa_playground.enums.ProductCategory;
 import org.learn.jpa_playground.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,10 +54,18 @@ public class ProductController {
     }
 
     @GetMapping("/listForm")
-    public String showProductList(Model model) {
-        log.info("showProductList");
-        List<ProductDTO> product = productService.findAll();
-        model.addAttribute("products", product);
+    public String showProductList(
+            @RequestParam(value = "category", required = false, defaultValue = "ALL") String category,
+            Model model) {
+
+        List<ProductDTO> products =
+                "ALL".equalsIgnoreCase(category)
+                        ? productService.findAll()
+                        : productService.findAllByCategory(ProductCategory.valueOf(category));
+
+        model.addAttribute("products", products);
+        model.addAttribute("categories", ProductCategory.values());
+        model.addAttribute("selectedCategory", category);
         return "product/productList";
     }
 

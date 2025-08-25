@@ -53,6 +53,44 @@ public class ProductService {
     }
 
     @Transactional
+    public List<ProductDTO> findAllByCategory(ProductCategory category) {
+        return productRepository.findByCategory(category.name())
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
+    private ProductDTO toDto(ProductDomain d) {
+        ProductStatus status = safeStatus(d.getStatus());
+        ProductCategory category = safeCategory(d.getCategory());
+
+        return ProductDTO.builder()
+                .id((long) d.getId())
+                .name(d.getName())
+                .description(d.getDescription())
+                .price(d.getPrice())
+                .stockQuantity(d.getStockQuantity())
+                .status(status)
+                .category(category)
+                .createdAt(String.valueOf(d.getCreatedDate()))
+                .updatedAt(String.valueOf(d.getUpdatedDate()))
+                .build();
+    }
+
+    private ProductStatus safeStatus(String s) {
+        if (s == null) return ProductStatus.AVAILABLE;
+        try { return ProductStatus.valueOf(s); }
+        catch (IllegalArgumentException e) { return ProductStatus.AVAILABLE; }
+    }
+
+    private ProductCategory safeCategory(String s) {
+        if (s == null) return ProductCategory.ETC;
+        try { return ProductCategory.valueOf(s); }
+        catch (IllegalArgumentException e) { return ProductCategory.ETC; }
+    }
+
+
+    @Transactional
     public ProductDTO findById(Long id) {
         ProductDomain productDomain = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품은 존재하지 않습니다. ID:" + id));

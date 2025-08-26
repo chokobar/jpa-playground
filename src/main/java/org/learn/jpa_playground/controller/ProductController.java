@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.learn.jpa_playground.domain.MemberDomain;
 import org.learn.jpa_playground.dto.ProductDTO;
 import org.learn.jpa_playground.enums.ProductCategory;
+import org.learn.jpa_playground.enums.ProductStatus;
 import org.learn.jpa_playground.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,18 +57,34 @@ public class ProductController {
     @GetMapping("/listForm")
     public String showProductList(
             @RequestParam(value = "category", required = false, defaultValue = "ALL") String category,
+            @RequestParam(value = "status",   required = false, defaultValue = "ALL") String status,
             Model model) {
 
-        List<ProductDTO> products =
-                "ALL".equalsIgnoreCase(category)
-                        ? productService.findAll()
-                        : productService.findAllByCategory(ProductCategory.valueOf(category));
+        List<ProductDTO> products;
+
+        boolean allCategory = "ALL".equalsIgnoreCase(category);
+        boolean allStatus   = "ALL".equalsIgnoreCase(status);
+
+        if (allCategory && allStatus) {
+            products = productService.findAll();
+        } else if (allCategory) {
+            products = productService.findAllByStatus(ProductStatus.valueOf(status));
+        } else if (allStatus) {
+            products = productService.findAllByCategory(ProductCategory.valueOf(category));
+        } else {
+            products = productService.findAllByCategoryAndStatus(
+                    ProductCategory.valueOf(category),
+                    ProductStatus.valueOf(status));
+        }
 
         model.addAttribute("products", products);
         model.addAttribute("categories", ProductCategory.values());
+        model.addAttribute("statuses", ProductStatus.values());
         model.addAttribute("selectedCategory", category);
+        model.addAttribute("selectedStatus", status);
         return "product/productList";
     }
+
 
     @GetMapping("/{id}")
     public String showProductDetail(@PathVariable Long id, Model model) {

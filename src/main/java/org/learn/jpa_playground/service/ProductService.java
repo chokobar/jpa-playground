@@ -60,6 +60,22 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<ProductDTO> findAllByStatus(ProductStatus status) {
+        return productRepository.findByStatus(status.name())
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<ProductDTO> findAllByCategoryAndStatus(ProductCategory category, ProductStatus status) {
+        return productRepository.findByCategoryAndStatus(category.name(), status.name())
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
     private ProductDTO toDto(ProductDomain d) {
         ProductStatus status = safeStatus(d.getStatus());
         ProductCategory category = safeCategory(d.getCategory());

@@ -13,4 +13,8 @@ public interface ProductRepository extends JpaRepository<ProductDomain, Integer>
     Optional<ProductDomain> findById(Long id);
 
     List<ProductDomain> findByCategory(String category);
+
+    List<ProductDomain> findByStatus(String status);
+
+    List<ProductDomain> findByCategoryAndStatus(String category, String status);
 }

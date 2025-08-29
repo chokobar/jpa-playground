@@ -9,53 +9,72 @@
       background-color: #f8f9fa;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     .card {
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      max-width: 1200px;
       width: 100%;
-      max-width: 1100px;
     }
-
-    table th {
-      background-color: #e9ecef;
+    h3 {
       font-weight: bold;
+      color: #343a40;
     }
-
-    table td, table th {
-      vertical-align: middle;
+    .table th {
+      background-color: #f1f3f5;
     }
-
-    .btn-group-custom a {
-      width: 48%;
+    .badge {
+      font-size: 0.85rem;
     }
-
-    @media (max-width: 576px) {
-      .btn-group-custom {
-        flex-direction: column;
-      }
-
-      .btn-group-custom a {
-        width: 100%;
-        margin-bottom: 10px;
-      }
+    .btn-custom {
+      min-width: 120px;
     }
   </style>
 </head>
 <body>
 
-<div class="d-flex justify-content-center align-items-center vh-100 px-2">
-  <div class="card p-4 bg-white">
-    <h3 class="text-center mb-4">상품 목록</h3>
+<div class="container py-5">
+  <div class="card mx-auto p-4 bg-white">
+    <h3 class="text-center mb-4">📦 상품 목록</h3>
+
+    <form class="row g-2 mb-4" th:action="@{/product/listForm}" method="get">
+      <div class="col-auto">
+        <select class="form-select" name="category">
+          <option th:value="ALL" th:selected="${selectedCategory == 'ALL'}">전체</option>
+          <option th:each="c : ${categories}"
+                  th:value="${c.name()}"
+                  th:text="${#strings.equals(c.name(),'ELECTRONICS') ? '전자제품' :
+                            #strings.equals(c.name(),'BOOKS') ? '도서' :
+                            #strings.equals(c.name(),'FOOD') ? '식료품' : '기타'}"
+                  th:selected="${selectedCategory == c.name()}">
+          </option>
+        </select>
+      </div>
+
+      <div class="col-auto">
+        <select class="form-select" name="status">
+          <option th:value="ALL" th:selected="${selectedStatus == 'ALL'}">상태</option>
+          <option th:each="s : ${statuses}"
+                  th:value="${s.name()}"
+                  th:text="${#strings.equals(s.name(),'AVAILABLE') ? '판매중' :
+                        #strings.equals(s.name(),'SOLD_OUT') ? '품절' : '단종'}"
+                  th:selected="${selectedStatus == s.name()}">
+          </option>
+        </select>
+      </div>
+
+      <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary btn-custom">검색</button>
+      </div>
+    </form>
 
     <div class="table-responsive">
-      <table class="table table-bordered table-hover text-center align-middle">
+      <table class="table table-hover align-middle text-center">
         <thead class="table-light">
         <tr>
           <th>번호</th>
           <th>상품명</th>
           <th>설명</th>
-          <th>가격 (원)</th>
+          <th>가격</th>
           <th>재고</th>
           <th>상태</th>
           <th>카테고리</th>
@@ -65,46 +84,44 @@
         </thead>
         <tbody>
         <tr th:each="product, stat : ${products}">
-          <td th:text="${stat.index + 1}">1</td>
+          <td th:text="${stat.count}"></td>
           <td>
-            <a th:href="@{/product/{id}(id=${product.id})}" th:text="${product.name}">상품명</a>
+            <a class="fw-bold text-decoration-none text-primary"
+               th:href="@{/product/{id}(id=${product.id})}"
+               th:text="${product.name}">상품명</a>
           </td>
-<!--          <td th:text="${product.name}">상품명</td>-->
           <td th:text="${product.description}">상품설명</td>
-          <td th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')}">10000</td>
+          <td th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + ' 원'}">10000</td>
           <td th:text="${product.stockQuantity}">10</td>
           <td>
             <span th:switch="${product.status.name()}">
-              <span th:case="'AVAILABLE'">판매중</span>
-              <span th:case="'SOLD_OUT'">품절</span>
-              <span th:case="'DISCONTINUED'">단종</span>
+              <span th:case="'AVAILABLE'" class="badge bg-success">판&nbsp;매&nbsp;중</span>
+              <span th:case="'SOLD_OUT'" class="badge bg-danger">품&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;절</span>
+              <span th:case="'DISCONTINUED'" class="badge bg-secondary">단&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;종</span>
             </span>
           </td>
           <td>
             <span th:switch="${product.category.name()}">
-              <span th:case="'ELECTRONICS'">전자제품</span>
-              <span th:case="'BOOKS'">도서</span>
-              <span th:case="'FOOD'">식료품</span>
-              <span th:case="'ETC'">기타</span>
+              <span th:case="'ELECTRONICS'" class="badge bg-info text-dark">전자제품</span>
+              <span th:case="'BOOKS'" class="badge bg-warning text-dark">도&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서</span>
+              <span th:case="'FOOD'" class="badge bg-success">식&nbsp;료&nbsp;품</span>
+              <span th:case="'ETC'" class="badge bg-dark">기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;타</span>
             </span>
           </td>
-          <td th:text="${product.createdAt}">2025-08-01</td>
-          <td th:text="${#strings.isEmpty(product.updatedAt) or product.updatedAt == 'null' ? ' ' : product.updatedAt}"></td>
-
-
+          <td th:text="${product.createdAt}"></td>
+          <td th:text="${#strings.isEmpty(product.updatedAt) or product.updatedAt == 'null' ? '-' : product.updatedAt}"></td>
         </tr>
         <tr th:if="${#lists.isEmpty(products)}">
-          <td colspan="9" class="text-muted">등록된 상품이 없습니다.</td>
+          <td colspan="9" class="text-muted py-3">등록된 상품이 없습니다.</td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="d-flex justify-content-between mt-4 btn-group-custom">
-      <a class="btn btn-primary" th:href="@{/}">메인화면</a>
-      <a class="btn btn-success" th:href="@{/product/productForm}">상품 등록</a>
+    <div class="d-flex justify-content-between mt-4">
+      <a class="btn btn-outline-secondary btn-custom" th:href="@{/}">메인화면</a>
+      <a class="btn btn-success btn-custom" th:href="@{/product/productForm}">상품 등록</a>
     </div>
-
   </div>
 </div>
 

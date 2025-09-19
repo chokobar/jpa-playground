@@ -33,7 +33,6 @@ dependencies {
 
 	// 데이터베이스 드라이버 (MySQL 사용 시)
 	//runtimeOnly 'com.mysql:mysql-connector-j' // 최신 Spring Boot에서는 이걸로 충분
-
 	implementation 'com.mysql:mysql-connector-j'
 
 	// 보안 (로그인, 인증 등)

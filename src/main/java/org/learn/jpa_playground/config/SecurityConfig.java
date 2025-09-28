@@ -37,7 +37,7 @@ public class SecurityConfig {
     }
 
 
-    // 비밀번호 암호화 빈 등록
+    // 비밀번호 암호화 빈 등록(단방향 해시 함수 기반 암호화 (복호화 불가능))
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

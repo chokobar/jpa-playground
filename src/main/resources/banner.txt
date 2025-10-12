@@ -8,5 +8,5 @@
 █  Java Version       : ${java.version}                    █
 █  OS                 : ${os.name} (${os.version})            █
 █                                                  █
-█                         Developed by: chokobar89 █
+█                         Developed by: chokobar   █
 ████████████████████████████████████████████████████

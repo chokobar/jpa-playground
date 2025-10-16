@@ -14,32 +14,36 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // OK
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/", "/auth/login",
-                                "/auth/login-process",
-                                "/auth/logout",
-                                "/save",
-                                "/join", "/css/**",
-                                "/member/memberAdd",
-                                "/member/save",
-                                "/member/members/**",
-                                "/member/**",
-                                "/members/**",
-                                "/board/**",
-                                "/product/**"
+                                "/", "/auth/login", "/auth/login-process", "/auth/logout",
+                                "/css/**", "/js/**", "/images/**",
+                                "/save", "/join",
+                                "/member/**", "/members/**",
+                                "/board/**", "/product/**"
                         ).permitAll()
                         .anyRequest().authenticated()
+                )
+                .formLogin(login -> login
+                        .loginPage("/auth/login")          // GET: 로그인 화면
+                        .loginProcessingUrl("/auth/login-process") // POST: 로그인 처리 (컨트롤러 필요 없음)
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessUrl("/auth/login?logout")
+                        .permitAll()
                 );
 
         return http.build();
     }
 
-
-    // 비밀번호 암호화 빈 등록(단방향 해시 함수 기반 암호화 (복호화 불가능))
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
+
+
